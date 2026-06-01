@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Mi Negocio — servicios profesionales de calidad. Contáctanos hoy." />
+  <title>Mi Negocio | Servicios profesionales</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- Encabezado / Navegación -->
+  <header class="site-header" id="inicio">
+    <nav class="nav container">
+      <a href="#inicio" class="logo">Mi<span>Negocio</span></a>
+      <button class="nav-toggle" id="navToggle" aria-label="Abrir menú">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#servicios">Servicios</a></li>
+        <li><a href="#nosotros">Nosotros</a></li>
+        <li><a href="#contacto" class="btn btn-small">Contacto</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Sección principal (Hero) -->
+  <section class="hero">
+    <div class="container hero-content">
+      <h1>Soluciones profesionales para tu <span>negocio</span></h1>
+      <p class="hero-sub">Ofrecemos servicios de calidad con atención personalizada para ayudarte a crecer. Confía en nosotros para llevar tu proyecto al siguiente nivel.</p>
+      <div class="hero-actions">
+        <a href="#contacto" class="btn">Solicita presupuesto</a>
+        <a href="#servicios" class="btn btn-ghost">Ver servicios</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Servicios -->
+  <section class="section" id="servicios">
+    <div class="container">
+      <h2 class="section-title">Nuestros servicios</h2>
+      <p class="section-lead">Todo lo que necesitas, en un solo lugar.</p>
+      <div class="cards">
+        <article class="card">
+          <div class="card-icon">⚡</div>
+          <h3>Servicio uno</h3>
+          <p>Describe aquí tu primer servicio y por qué tus clientes lo van a querer.</p>
+        </article>
+        <article class="card">
+          <div class="card-icon">🎯</div>
+          <h3>Servicio dos</h3>
+          <p>Explica el valor de este servicio de forma clara y directa.</p>
+        </article>
+        <article class="card">
+          <div class="card-icon">🤝</div>
+          <h3>Servicio tres</h3>
+          <p>Cuenta cómo este servicio resuelve un problema de tus clientes.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Nosotros -->
+  <section class="section section-alt" id="nosotros">
+    <div class="container about">
+      <div class="about-text">
+        <h2 class="section-title">Sobre nosotros</h2>
+        <p>Somos un equipo apasionado por ofrecer el mejor servicio. Llevamos años ayudando a clientes como tú a conseguir resultados reales.</p>
+        <p>Reemplaza este texto con la historia de tu negocio, tu misión y lo que te hace diferente.</p>
+        <ul class="checklist">
+          <li>Atención personalizada</li>
+          <li>Calidad garantizada</li>
+          <li>Precios competitivos</li>
+        </ul>
+      </div>
+      <div class="about-stats">
+        <div class="stat"><strong>+100</strong><span>Clientes felices</span></div>
+        <div class="stat"><strong>10</strong><span>Años de experiencia</span></div>
+        <div class="stat"><strong>24/7</strong><span>Soporte</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contacto -->
+  <section class="section" id="contacto">
+    <div class="container">
+      <h2 class="section-title">Contáctanos</h2>
+      <p class="section-lead">Cuéntanos qué necesitas y te responderemos lo antes posible.</p>
+      <form class="contact-form" id="contactForm" novalidate>
+        <div class="form-row">
+          <input type="text" name="nombre" placeholder="Tu nombre" required />
+          <input type="email" name="email" placeholder="Tu email" required />
+        </div>
+        <textarea name="mensaje" rows="5" placeholder="Tu mensaje" required></textarea>
+        <button type="submit" class="btn">Enviar mensaje</button>
+        <p class="form-status" id="formStatus" role="status"></p>
+      </form>
+    </div>
+  </section>
+
+  <!-- Pie de página -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <span>© <span id="year"></span> Mi Negocio. Todos los derechos reservados.</span>
+      <div class="socials">
+        <a href="#" aria-label="Instagram">Instagram</a>
+        <a href="#" aria-label="Facebook">Facebook</a>
+        <a href="mailto:hola@minegocio.com">hola@minegocio.com</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -18,7 +18,7 @@ navLinks.querySelectorAll("a").forEach((link) => {
 const form = document.getElementById("contactForm");
 const status = document.getElementById("formStatus");
 
-form.addEventListener("submit", (e) => {
+if (form) form.addEventListener("submit", (e) => {
   e.preventDefault();
   const data = new FormData(form);
   const nombre = data.get("nombre").trim();

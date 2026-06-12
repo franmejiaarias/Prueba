@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title id="pageTitle">Proyecto — RIR Ingeniería</title>
+<meta name="description" content="Detalle de proyecto ejecutado por RIR Ingeniería. Galería, especificaciones y alcance constructivo." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+<style>
+:root {
+  --black:#ffffff; --deep:#f4f8fd; --charcoal:#eaf1fa; --concrete:#e3ecf7;
+  --steel:#d6e3f3; --mid:#bcd0e8; --muted:#7c8caa; --subtle:#57688a;
+  --light:#38496a; --white:#122039; --off-white:#1a2b49;
+  --gold:#1f5fae; --gold-dim:#16447f;
+  --font-display:'Cormorant Garamond',Georgia,serif;
+  --font-ui:'Space Grotesk',system-ui,sans-serif;
+  --font-body:'Inter',system-ui,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;background:var(--black);color:var(--white);overflow-x:hidden;}
+body{font-family:var(--font-body);font-size:16px;line-height:1.6;background:var(--black);color:var(--white);overflow-x:hidden;cursor:none;}
+
+/* Cursor */
+#cursor{position:fixed;top:0;left:0;width:10px;height:10px;background:var(--gold);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:transform .08s ease,width .25s ease,height .25s ease;}
+#cursor-ring{position:fixed;top:0;left:0;width:36px;height:36px;border:1px solid rgba(31,95,174,.45);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:transform .18s ease,width .3s ease,height .3s ease,border-color .3s ease;}
+body.cursor-hover #cursor{width:6px;height:6px;}
+body.cursor-hover #cursor-ring{width:54px;height:54px;border-color:rgba(31,95,174,.7);}
+@media (max-width:900px){body{cursor:auto;}#cursor,#cursor-ring{display:none;}}
+
+::-webkit-scrollbar{width:3px;}
+::-webkit-scrollbar-track{background:var(--black);}
+::-webkit-scrollbar-thumb{background:var(--gold-dim);border-radius:2px;}
+
+/* Nav */
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:18px 60px;display:flex;align-items:center;justify-content:space-between;background:rgba(255,255,255,.9);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid rgba(31,95,174,.14);box-shadow:0 4px 30px rgba(18,32,57,.06);}
+.nav-logo{display:flex;align-items:center;gap:2px;text-decoration:none;flex-direction:column;}
+.nav-logo-img{height:56px;width:auto;display:block;}
+.nav-logo-mark{font-family:var(--font-ui);font-size:20px;font-weight:700;letter-spacing:.12em;color:var(--white);line-height:1;}
+.nav-logo-mark span{color:var(--gold);}
+.nav-logo-sub{font-family:var(--font-body);font-size:9px;letter-spacing:.28em;color:var(--subtle);text-transform:uppercase;}
+.nav-links{display:flex;gap:36px;align-items:center;list-style:none;}
+.nav-links a{font-family:var(--font-ui);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--subtle);text-decoration:none;transition:color .3s ease;}
+.nav-links a:hover{color:var(--gold);}
+.nav-cta{color:#fff !important;background:var(--gold);padding:10px 22px;border-radius:1px;}
+.nav-cta:hover{background:var(--gold-dim);}
+.lang-toggle{font-family:var(--font-ui);font-size:11px;font-weight:600;letter-spacing:.14em;color:var(--gold);background:transparent;border:1px solid rgba(31,95,174,.3);border-radius:30px;padding:7px 14px;cursor:pointer;margin-left:22px;transition:background .3s ease,color .3s ease,border-color .3s ease;}
+.lang-toggle:hover{background:var(--gold);color:#fff;border-color:var(--gold);}
+@media (max-width:760px){nav{padding:16px 24px;}.nav-links{gap:18px;}.nav-links a.hide-sm{display:none;}}
+
+/* Back */
+.detail-back{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-ui);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--subtle);text-decoration:none;transition:gap .3s ease,color .3s ease;}
+.detail-back:hover{color:var(--gold);gap:14px;}
+.detail-back svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:1.5;}
+
+/* Hero */
+.dhero{position:relative;display:flex;align-items:flex-end;overflow:hidden;background:#0e1f3c;}
+.dhero.no-img{min-height:64vh;background:var(--charcoal);}
+.dhero-photo{display:block;width:100%;height:auto;}      /* portada completa, sin recortar — llena el ancho como Torre Siena */
+.dhero.no-img .dhero-photo{display:none;}
+.dhero-ph{position:absolute;inset:0;background:linear-gradient(135deg,var(--concrete),var(--charcoal) 55%,var(--deep));display:flex;align-items:center;justify-content:center;}
+.dhero:not(.no-img) .dhero-ph{display:none;}
+.dhero-ph span{font-family:var(--font-ui);font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);opacity:.5;}
+.dhero-overlay{position:absolute;left:0;right:0;bottom:0;height:62%;background:linear-gradient(to top,rgba(8,17,33,.9) 0%,rgba(8,17,33,.4) 45%,transparent 100%);z-index:1;}
+.dhero.no-img .dhero-overlay{display:none;}
+.dhero-inner{position:absolute;left:0;right:0;bottom:0;z-index:2;max-width:1340px;margin:0 auto;width:100%;padding:0 60px 56px;}
+.dhero-eyebrow{font-family:var(--font-ui);font-size:11px;letter-spacing:.32em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;display:flex;align-items:center;gap:12px;}
+.dhero-eyebrow::before{content:'';width:30px;height:1px;background:var(--gold);display:inline-block;}
+.dhero h1{font-family:var(--font-display);font-size:clamp(40px,7vw,86px);font-weight:400;line-height:1.04;color:var(--white);letter-spacing:-.01em;}
+.dhero-loc{margin-top:14px;font-family:var(--font-body);font-size:15px;font-weight:300;color:var(--subtle);display:flex;align-items:center;gap:8px;}
+.dhero-loc svg{width:16px;height:16px;stroke:var(--gold);fill:none;stroke-width:1.5;}
+/* Con foto de portada: texto claro sobre el velo oscuro */
+.dhero.has-img .dhero-eyebrow{color:#9fc2ee;}
+.dhero.has-img .dhero-eyebrow::before{background:#9fc2ee;}
+.dhero.has-img h1{color:#fff;}
+.dhero.has-img .dhero-loc{color:#d7e3f3;}
+.dhero.has-img .dhero-loc svg{stroke:#9fc2ee;}
+@media (max-width:760px){.dhero-inner{padding:0 24px 38px;}.dhero.no-img{min-height:52vh;}}
+
+/* Overview */
+.section-inner{max-width:1340px;margin:0 auto;padding:0 60px;}
+@media (max-width:760px){.section-inner{padding:0 24px;}}
+.overview{padding:90px 0 30px;}
+.overview-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:40px;flex-wrap:wrap;gap:16px;}
+.overview-grid{display:grid;grid-template-columns:1.5fr 1fr;gap:70px;align-items:start;}
+.overview-desc{font-family:var(--font-body);font-size:17px;line-height:1.85;color:var(--light);font-weight:300;}
+.overview-result{margin-top:30px;padding:22px 26px;border-left:2px solid var(--gold);background:rgba(31,95,174,.05);font-family:var(--font-display);font-style:italic;font-size:20px;line-height:1.5;color:var(--off-white);}
+.specs{display:flex;flex-direction:column;gap:0;border-top:1px solid rgba(31,95,174,.18);}
+.spec{display:flex;justify-content:space-between;gap:20px;padding:18px 0;border-bottom:1px solid rgba(31,95,174,.12);}
+.spec-k{font-family:var(--font-ui);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);}
+.spec-v{font-family:var(--font-body);font-size:14px;color:var(--white);font-weight:400;text-align:right;}
+
+/* Columna lateral: Ubicación / Amenidades / Terminaciones */
+.overview-side{display:flex;flex-direction:column;gap:34px;}
+.side-block{}
+.side-label{font-family:var(--font-ui);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid rgba(31,95,174,.16);}
+.side-text{font-family:var(--font-body);font-size:15px;line-height:1.8;color:var(--light);font-weight:300;}
+.side-block .side-text:first-letter{}
+.side-list{list-style:none;display:flex;flex-direction:column;gap:12px;}
+.side-list li{font-family:var(--font-body);font-size:15px;color:var(--white);font-weight:300;display:flex;gap:11px;align-items:flex-start;}
+.side-list li::before{content:'';flex-shrink:0;width:16px;height:16px;margin-top:3px;background:no-repeat center/contain url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231f5fae' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E");}
+@media (max-width:860px){.overview-grid{grid-template-columns:1fr;gap:40px;}}
+
+/* Gallery */
+.gallery{padding:70px 0 110px;}
+.gallery h2{font-family:var(--font-display);font-size:clamp(28px,3.5vw,44px);font-weight:400;color:var(--white);margin-bottom:8px;}
+.gallery h2 em{font-style:italic;color:var(--gold);}
+.gallery-sub{font-family:var(--font-body);font-size:14px;color:var(--subtle);font-weight:300;margin-bottom:44px;}
+.gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+.gal-item{border:none;padding:0;margin:0;cursor:pointer;background:var(--concrete);overflow:hidden;position:relative;aspect-ratio:4/3;border-radius:2px;}
+.gal-item img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s cubic-bezier(.25,.46,.45,.94);}
+.gal-item:hover img{transform:scale(1.06);}
+.gal-item::after{content:'';position:absolute;inset:0;background:rgba(31,95,174,0);transition:background .3s ease;}
+.gal-item:hover::after{background:rgba(31,95,174,.12);}
+.gallery-empty{padding:70px 30px;text-align:center;border:1px dashed rgba(31,95,174,.3);border-radius:4px;background:var(--deep);}
+.gallery-empty .ge-t{font-family:var(--font-display);font-size:24px;color:var(--white);margin-bottom:10px;}
+.gallery-empty .ge-s{font-family:var(--font-body);font-size:14px;color:var(--subtle);font-weight:300;}
+.gallery-empty code{font-family:monospace;color:var(--gold);background:rgba(31,95,174,.08);padding:2px 7px;border-radius:3px;}
+@media (max-width:860px){.gallery-grid{grid-template-columns:repeat(2,1fr);}}
+@media (max-width:520px){.gallery-grid{grid-template-columns:1fr;}}
+
+/* Secciones de detalle (Amenidades / Tipologías) */
+.pd-section{padding:66px 0;}
+.pd-section--alt{background:var(--charcoal);}
+.pd-h2{font-family:var(--font-display);font-size:clamp(30px,3.8vw,50px);font-weight:400;color:var(--white);line-height:1.08;letter-spacing:-.01em;margin-bottom:10px;}
+.pd-h2 em{font-style:italic;color:var(--gold);}
+.pd-sub{font-family:var(--font-body);font-size:15px;color:var(--subtle);font-weight:300;margin-bottom:8px;}
+
+/* Amenidades */
+.amenity-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:46px;}
+.amenity-item{background:var(--black);border:1px solid rgba(31,95,174,.12);border-radius:8px;padding:32px 26px;display:flex;flex-direction:column;gap:18px;transition:transform .3s ease,box-shadow .3s ease,border-color .3s ease;}
+.amenity-item:hover{transform:translateY(-5px);box-shadow:0 18px 44px rgba(18,32,57,.10);border-color:rgba(31,95,174,.28);}
+.amenity-ic{width:50px;height:50px;border-radius:50%;background:rgba(31,95,174,.08);display:flex;align-items:center;justify-content:center;}
+.amenity-ic svg{width:23px;height:23px;stroke:var(--gold);fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;}
+.amenity-name{font-family:var(--font-ui);font-size:14px;font-weight:500;color:var(--white);letter-spacing:.01em;}
+@media (max-width:860px){.amenity-grid{grid-template-columns:repeat(2,1fr);}}
+@media (max-width:460px){.amenity-grid{grid-template-columns:1fr;}}
+
+/* Tipos de apartamentos — compacto, 4 en una fila */
+.unit-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(236px,1fr));gap:14px;margin-top:36px;}
+.unit-card{background:var(--black);border:1px solid rgba(31,95,174,.14);border-radius:8px;padding:24px 22px;transition:transform .3s ease,box-shadow .3s ease;}
+.unit-card:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(18,32,57,.10);}
+.unit-head{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;padding-bottom:14px;margin-bottom:14px;border-bottom:1px solid rgba(31,95,174,.12);}
+.unit-tipo{font-family:var(--font-display);font-size:21px;font-weight:500;color:var(--white);line-height:1;}
+.unit-beds{font-family:var(--font-ui);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-top:6px;}
+.unit-area{flex-shrink:0;font-family:var(--font-ui);font-size:11px;font-weight:600;letter-spacing:.04em;color:var(--gold);background:rgba(31,95,174,.09);padding:5px 10px;border-radius:30px;}
+.unit-feats{list-style:none;display:flex;flex-direction:column;gap:8px;}
+.unit-feats li{font-family:var(--font-body);font-size:12.5px;line-height:1.45;color:var(--light);font-weight:300;display:flex;gap:9px;align-items:flex-start;}
+.unit-feats li::before{content:'';flex-shrink:0;width:14px;height:14px;margin-top:2px;background:no-repeat center/contain url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231f5fae' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E");}
+@media (max-width:520px){.unit-grid{grid-template-columns:1fr;}}
+
+/* CTA */
+.dcta{background:var(--charcoal);border-top:1px solid rgba(31,95,174,.14);padding:80px 0;text-align:center;}
+.dcta h2{font-family:var(--font-display);font-size:clamp(28px,3.5vw,46px);font-weight:400;color:var(--white);margin-bottom:18px;}
+.dcta h2 em{font-style:italic;color:var(--gold);}
+.dcta p{font-family:var(--font-body);font-size:15px;color:var(--subtle);font-weight:300;max-width:520px;margin:0 auto 34px;}
+.dcta-actions{display:flex;gap:18px;justify-content:center;flex-wrap:wrap;}
+.btn-primary{font-family:var(--font-ui);font-size:12px;letter-spacing:.2em;text-transform:uppercase;background:var(--gold);color:#fff;padding:16px 34px;text-decoration:none;border-radius:1px;transition:background .3s ease,transform .2s ease;display:inline-flex;align-items:center;gap:10px;}
+.btn-primary:hover{background:var(--gold-dim);transform:translateY(-2px);}
+.btn-ghost{font-family:var(--font-ui);font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);text-decoration:none;padding:16px 28px;border:1px solid rgba(31,95,174,.35);border-radius:1px;transition:background .3s ease,color .3s ease;}
+.btn-ghost:hover{background:var(--gold);color:#fff;}
+
+/* Footer */
+footer{background:var(--black);padding:50px 60px;border-top:1px solid rgba(31,95,174,.12);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:24px;}
+.footer-logo-img{height:52px;width:auto;}
+.footer-copy{font-family:var(--font-body);font-size:12px;color:var(--muted);font-weight:300;}
+.footer-links{display:flex;gap:28px;}
+.footer-links a{font-family:var(--font-ui);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .3s ease;}
+.footer-links a:hover{color:var(--gold);}
+@media (max-width:760px){footer{padding:36px 24px;}}
+
+/* Lightbox */
+.lightbox{position:fixed;inset:0;z-index:5000;background:rgba(10,18,34,.94);display:none;align-items:center;justify-content:center;padding:40px;cursor:zoom-out;}
+.lightbox.open{display:flex;}
+.lightbox img{max-width:92vw;max-height:88vh;object-fit:contain;border-radius:3px;box-shadow:0 20px 80px rgba(0,0,0,.5);}
+.lightbox-close{position:absolute;top:24px;right:30px;width:44px;height:44px;border:1px solid rgba(255,255,255,.3);background:transparent;color:#fff;border-radius:50%;font-size:22px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s ease;}
+.lightbox-close:hover{background:rgba(255,255,255,.12);}
+.lb-nav{position:absolute;top:50%;transform:translateY(-50%);width:50px;height:50px;border:1px solid rgba(255,255,255,.3);background:transparent;color:#fff;border-radius:50%;cursor:pointer;font-size:20px;display:flex;align-items:center;justify-content:center;transition:background .2s ease;}
+.lb-nav:hover{background:rgba(255,255,255,.12);}
+.lb-prev{left:26px;} .lb-next{right:26px;}
+
+/* WhatsApp float */
+.whatsapp-float{position:fixed;bottom:32px;right:32px;z-index:900;width:56px;height:56px;background:#25D366;border-radius:50%;display:flex;align-items:center;justify-content:center;text-decoration:none;box-shadow:0 8px 32px rgba(37,211,102,.3);transition:transform .3s ease;}
+.whatsapp-float:hover{transform:scale(1.08) translateY(-2px);}
+.whatsapp-float svg{width:28px;height:28px;fill:#fff;}
+
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .8s ease,transform .8s ease;}
+.reveal.in{opacity:1;transform:none;}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{transition-duration:.001ms !important;}}
+</style>
+</head>
+<body>
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+
+<a href="https://wa.me/18095431906" target="_blank" rel="noopener" class="whatsapp-float" aria-label="WhatsApp">
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<nav>
+  <a href="index.html" class="nav-logo">
+    <img src="assets/logo.png" alt="RIR Ingeniería" class="nav-logo-img"
+         onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
+    <span style="display:none;flex-direction:column;gap:1px">
+      <span class="nav-logo-mark">R<span>I</span>R</span>
+      <span class="nav-logo-sub">Ingeniería</span>
+    </span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html#projects" class="hide-sm">Proyectos</a></li>
+    <li><a href="index.html#about" class="hide-sm">Nosotros</a></li>
+    <li><a href="index.html#contact" class="nav-cta">Contacto</a></li>
+  </ul>
+  <button class="lang-toggle" id="langToggle" type="button" aria-label="Cambiar idioma / Change language">EN</button>
+</nav>
+
+<!-- HERO -->
+<header class="dhero no-img" id="dhero">
+  <img id="dheroImgEl" class="dhero-photo" alt="" />
+  <div class="dhero-ph" id="dheroPh"><span>Foto próximamente</span></div>
+  <div class="dhero-overlay"></div>
+  <div class="dhero-inner">
+    <div class="dhero-eyebrow" id="dEyebrow">Proyecto</div>
+    <h1 id="dName">Proyecto</h1>
+    <div class="dhero-loc" id="dLocWrap">
+      <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+      <span id="dLoc"></span>
+    </div>
+  </div>
+</header>
+
+<!-- OVERVIEW -->
+<section class="overview">
+  <div class="section-inner">
+    <div class="overview-top">
+      <a href="index.html#projects" class="detail-back">
+        <svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        Volver a proyectos
+      </a>
+      <div class="detail-back" id="dIndex" style="display:none;cursor:default;color:var(--muted)"></div>
+    </div>
+    <div class="overview-grid">
+      <div class="reveal">
+        <p class="overview-desc" id="dDesc"></p>
+        <div class="overview-result" id="dResult"></div>
+      </div>
+      <div class="overview-side reveal" id="overviewSide"></div>
+    </div>
+  </div>
+</section>
+
+<!-- TIPOS DE APARTAMENTOS -->
+<section class="pd-section pd-section--alt" id="unitsSection" style="display:none">
+  <div class="section-inner">
+    <div class="section-eyebrow reveal">Tipologías</div>
+    <h2 class="pd-h2 reveal">Tipos de <em>apartamentos.</em></h2>
+    <p class="pd-sub reveal">Distribuciones diseñadas para distintos estilos de vida.</p>
+    <div class="unit-grid" id="unitGrid"></div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="gallery">
+  <div class="section-inner">
+    <h2 class="reveal">Galería del <em>proyecto</em></h2>
+    <p class="gallery-sub reveal">Imágenes y renders del desarrollo. Haz clic para ampliar.</p>
+    <div class="gallery-grid" id="galleryGrid"></div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="dcta">
+  <div class="section-inner">
+    <h2 class="reveal">¿Estás interesado en <em>alguno de nuestros proyectos?</em></h2>
+    <p class="reveal">Cuéntanos cuál te llamó la atención y conversemos. Te damos toda la información, sin compromiso.</p>
+    <div class="dcta-actions reveal">
+      <a href="https://wa.me/18095431906" target="_blank" rel="noopener" class="btn-primary">
+        Hablar por WhatsApp
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+      <a href="index.html#contact" class="btn-ghost">Formulario de contacto</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <a href="index.html" class="nav-logo" style="flex-direction:row">
+    <img src="assets/logo.png" alt="RIR Ingeniería" class="footer-logo-img"
+         onerror="this.style.display='none';this.nextElementSibling.style.display='inline'" />
+    <span style="display:none;font-family:var(--font-ui);font-weight:700;letter-spacing:.12em;color:var(--white)">R<span style="color:var(--gold)">I</span>R</span>
+  </a>
+  <div class="footer-copy">© 2025 RIR Ingeniería. República Dominicana. Todos los derechos reservados.</div>
+  <div class="footer-links">
+    <a href="index.html#projects">Proyectos</a>
+    <a href="index.html#contact">Contacto</a>
+    <a href="https://www.instagram.com/riringenieria" target="_blank" rel="noopener">Instagram</a>
+  </div>
+</footer>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" id="lbClose" aria-label="Cerrar">&times;</button>
+  <button class="lb-nav lb-prev" id="lbPrev" aria-label="Anterior">&#8249;</button>
+  <img id="lbImg" src="" alt="" />
+  <button class="lb-nav lb-next" id="lbNext" aria-label="Siguiente">&#8250;</button>
+</div>
+
+<script>
+/* ===== DATOS DE PROYECTOS ===== */
+const PROJECTS = {
+  solengo:{name:'Solengo',type:'Desarrollo Residencial',loc:'Urbanización Thomén, Santiago de los Caballeros',tipo:'Residencial',rol:'Construcción & Ejecución',estado:'Ejecutado',
+    desc:'Proyecto residencial contemporáneo con unidades de 1, 2 y 3 habitaciones, pensado para parejas, familias, viajeros ejecutivos e inversionistas que buscan comodidad, diseño y ubicación estratégica.',
+    result:'Solengo fue concebido como un proyecto funcional, moderno y rentable. Cada espacio ha sido diseñado para aprovechar al máximo la distribución, la iluminación natural y la comodidad del usuario, integrando terminaciones de calidad, amenidades prácticas y una ubicación estratégica que lo convierte en una excelente opción tanto para vivir como para invertir.',
+    amenities:['Gimnasio equipado','Lounge social','Terraza exterior','Área social'],
+    finishes:'Porcelanato de primera, cocinas modulares, topes en granito, balcones en cristal y acero inoxidable, grifería de alta calidad, calentador de gas, cisterna y aires acondicionados en todas las habitaciones.',
+    units:[
+      {tipo:'Tipo B', area:'62 m²', features:['1 habitación','Baño y walking closet','Sala y comedor','Cocina con isla','Área de lavado','Medio baño de visita']},
+      {tipo:'Tipo C', area:'82 m²', features:['2 habitaciones','Principal con baño y walking closet','Sala y comedor','Cocina con isla opcional','Área de lavado','Medio baño de visita']},
+      {tipo:'Tipo A', area:'105 m²', features:['2 habitaciones','Cada habitación con baño y walking closet','Sala y comedor','Cocina con opción de isla','Área de lavado','Medio baño de visita']},
+      {tipo:'Tipo D', area:'137 m²', features:['3 habitaciones','Principal con baño y walking closet','Sala y comedor','Cocina con desayunador','Balcón','Área de lavado','Medio baño de visita']}
+    ]},
+  murena:{name:'Mureña Residences',type:'Complejo Residencial Premium',loc:'Urbanización Thomén, Santiago de los Caballeros',tipo:'Residencial Premium',rol:'Ingeniería & Construcción',estado:'Ejecutado',
+    desc:'Proyecto que combina diseño moderno, espacios amplios, iluminación natural y vistas panorámicas de la ciudad, ofreciendo apartamentos pensados para quienes buscan comodidad, elegancia y una experiencia residencial de alto nivel.',
+    result:'En Mureña Residences buscamos desarrollar una torre residencial que integrara funcionalidad, estética y confort. Cada espacio fue pensado para aprovechar la iluminación natural, las vistas y la distribución interior, creando un proyecto moderno que eleva la experiencia de vivir en una de las zonas más exclusivas de Santiago.',
+    amenities:['Piscina','Rooftop','Terraza','Área BBQ','Área de lounge','Salón de reuniones','Lobby climatizado','Gimnasio primer nivel','Planta eléctrica full','Gas centralizado','2 elevadores','Parqueos techados'],
+    finishes:'Iluminación natural en los espacios, cocina moderna, balcones con vistas, espacios amplios y funcionales, diseño contemporáneo, rooftop con áreas sociales y vista panorámica de Santiago.',
+    units:[
+      {tipo:'Tipo B', area:'120 m²', beds:'3 habitaciones', features:['Sala','Balcón','Baño de visita','Comedor','Cocina con desayunador','Habitación principal con baño, walking closet y acceso al balcón','2 habitaciones secundarias con closet','Baño para habitaciones secundarias','Closet de ropa blanca','Área de lavado','Cuarto de servicio']},
+      {tipo:'Tipo A', area:'135 m²', beds:'3 habitaciones', features:['Sala','Balcón','Baño de visita','Comedor','Cocina con isla','Habitación principal con baño, walking closet y acceso al balcón','2 habitaciones secundarias con closet','Baño para habitaciones secundarias','Closet de ropa blanca','Área de lavado','Cuarto de servicio']},
+      {tipo:'Penthouse', area:'189 m²', beds:'3 habitaciones · 2 niveles', features:['Sala','Balcón','Baño de visita','Comedor','Cocina con isla','Habitación principal con baño y walking closet','2 habitaciones secundarias con closet','Estar familiar','Terraza exterior con jacuzzi','Área BBQ','Área de lavado','Cuarto de servicio']}
+    ]},
+  residenza:{name:'Residenza',type:'Residencial de Diseño',loc:'Carretera Duarte, Santiago de los Caballeros',tipo:'Residencial Premium',rol:'Ejecución Constructiva',estado:'Ejecutado',
+    desc:'Proyecto residencial moderno de diseño minimalista, ubicado en una zona estratégica de Santiago. Combina confort, calidez y elegancia, creando espacios pensados para la vida familiar y el disfrute diario.',
+    result:'Residenza representa un proyecto pensado desde la funcionalidad y la vida familiar. Buscamos crear espacios cómodos, bien distribuidos y con terminaciones de calidad, manteniendo una arquitectura moderna y práctica que responda a las necesidades reales de quienes desean vivir en un entorno seguro, elegante y bien ubicado.',
+    amenities:['Piscina','Juegos infantiles','Área BBQ','Baños en área social','Área social','Paisajismo','Elevadores','Planta eléctrica en áreas comunes','Control de acceso'],
+    finishes:'Piso de porcelanato, cocinas modulares, tope de cocina en granito, respaldo de cocina en cerámica, calentador de gas, timbre e intercom, baranda de balcón en cristal y acero inoxidable, escalera principal en porcelanato, baranda de escalera en hierro, salida de agua para nevera, salida de gas para secadora y cisterna.',
+    units:[
+      {tipo:'Tipo A', area:'95 y 97 m²', beds:'2 habitaciones', features:['Balcón','Sala','Comedor','Cocina con isla','Baño de visita','2 habitaciones, cada una con baño y closet','Closet de ropa blanca','Área de lavado','Baño de servicio','1 parqueo por apartamento']},
+      {tipo:'Tipo B', area:'114 y 117 m²', beds:'3 habitaciones', features:['Balcón','Sala','Comedor','Cocina con desayunador','Estar familiar','Baño de visita','Habitación principal con baño y walking closet','2 habitaciones secundarias con closets','Closet de ropa blanca','Baño común','Área de lavado','1 parqueo por apartamento']}
+    ]},
+  siena:{name:'Torre Siena',type:'Residencial de vanguardia',loc:'La Esmeralda, Santiago, República Dominicana',tipo:'Torre Mixta',rol:'Ingeniería & Construcción',estado:'Ejecutado',
+    desc:'Proyecto residencial de vanguardia ubicado en el sector La Esmeralda, Santiago. Su diseño integra espacios abiertos, áreas verdes, amenidades funcionales y apartamentos pensados para responder a las necesidades del diario vivir con comodidad, eficiencia y estilo.',
+    result:'Siena nace con la intención de crear una propuesta diferente dentro de Santiago. Su diseño tipo escalera no solo aporta una imagen arquitectónica única, sino que también permite generar espacios más abiertos, terrazas mejor aprovechadas y una relación más directa con las vistas de la ciudad. Es un proyecto pensado para destacar, pero también para responder con eficiencia a las necesidades reales de sus residentes.',
+    amenities:['Lobby amueblado y climatizado','Oficina administrativa','Terrazas techadas y al aire libre en el piso 15','Gimnasio totalmente equipado en el piso 6','Área de juego de mesas','250 m² de área multiuso','Parqueos techados','2 ascensores','Planta eléctrica full','Portón eléctrico','Circuito cerrado de vigilancia HD','Ducto de basura','Sistema contra incendios','Intercom HD','Sistema de gas centralizado','Lockers disponibles para venta'],
+    distribution:['3 apartamentos por piso del 1er al 4to nivel','2 apartamentos por piso en el 5to nivel','1 apartamento por piso del 6to al 14avo nivel'],
+    finishes:'Piso de porcelanato de primera, cocinas modulares, tope y respaldo de cocina en granito, calentador de gas, techos con sheetrock, baranda de balcón en cristal y acero inoxidable, grifería de alta calidad, salida de agua para nevera, salida de gas para secadora, ducto para extractor y cisterna.',
+    includes:['Nevera','Estufa','Horno','Extractor','Aire acondicionado en todas las habitaciones']},
+  vera:{name:'Vera Condos',type:'Condominio Residencial',loc:'Llanos de Gurabo, Santiago de los Caballeros',tipo:'Condominio',rol:'Desarrollo Constructivo',estado:'Ejecutado',
+    desc:'Innovador proyecto residencial ubicado en una de las zonas de mayor crecimiento de Santiago. Su diseño combina líneas arquitectónicas modernas, espacios funcionales, iluminación natural y una distribución pensada para ofrecer confort, privacidad y seguridad a cada familia.',
+    result:'En Vera Condos buscamos desarrollar un proyecto residencial que se sintiera práctico, seguro y fácil de habitar. Cada apartamento fue pensado para ofrecer una distribución clara, espacios bien aprovechados y áreas comunes funcionales, manteniendo una arquitectura moderna que responde al estilo de vida de las familias actuales.',
+    amenities:['Gimnasio','Terraza exterior','Área BBQ','Ascensor'],
+    finishes:'Piso de porcelanato, cocinas modulares, tope de cocina en granito, calentador de gas, timbre e intercom, baranda de balcón en cristal y acero inoxidable, escalera principal en porcelanato, baranda de escalera en hierro, salida de agua para nevera, salida de gas para secadora y cisterna.',
+    units:[
+      {tipo:'Tipo A', area:'80 m²', beds:'2 habitaciones', features:['Balcón','Sala','Comedor','Cocina modular','Habitación principal con baño y vestidor','Habitación secundaria con walking closet','Baño común','Área de lavado','1 parqueo por apartamento']},
+      {tipo:'Tipo B y C', area:'125 m²', beds:'3 habitaciones', features:['Balcón','Sala','Comedor','Cocina con desayunador','Estar familiar','Baño común','Habitación principal con baño y walking closet','2 habitaciones secundarias con closets','Closet de ropa blanca','Área de lavado','Baño de servicio','1 parqueo por apartamento']}
+    ]}
+};
+const ORDER = ['solengo','murena','residenza','siena','vera'];
+const EXTS = ['jpg','jpeg','png','webp'];
+
+function getParam(){ return new URLSearchParams(location.search).get('p'); }
+function tryImage(base, cb){
+  let i=0;
+  (function next(){ if(i>=EXTS.length){cb(null);return;} const u=base+'.'+EXTS[i++]; const im=new Image(); im.onload=()=>cb(u); im.onerror=next; im.src=u; })();
+}
+
+const slug = getParam();
+const data = PROJECTS[slug];
+
+if(!data){
+  document.body.innerHTML = '<div style="min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;text-align:center;padding:40px;font-family:var(--font-body)"><div style="font-family:var(--font-display);font-size:42px;color:var(--white)">Proyecto no encontrado</div><a href="index.html#projects" style="color:var(--gold);font-family:var(--font-ui);letter-spacing:.2em;text-transform:uppercase;font-size:12px;text-decoration:none">← Volver a proyectos</a></div>';
+} else {
+  // Texto
+  document.getElementById('pageTitle').textContent = data.name + ' — RIR Ingeniería';
+  document.getElementById('dEyebrow').textContent = data.type;
+  document.getElementById('dName').textContent = data.name;
+  document.getElementById('dLoc').textContent = data.loc;
+  document.getElementById('dDesc').textContent = data.desc;
+  document.getElementById('dResult').textContent = '“' + data.result + '”';
+  document.querySelector('.gallery h2').innerHTML = 'Galería de <em>' + data.name + '</em>';
+  const idx = ORDER.indexOf(slug);
+  if(idx>=0) document.getElementById('dIndex').textContent = 'Proyecto ' + String(idx+1).padStart(2,'0') + ' / ' + String(ORDER.length).padStart(2,'0');
+
+  // Columna lateral: Ubicación + Amenidades + Distribución + Terminaciones + Incluye
+  const esc = (t) => t.replace(/&/g,'&amp;').replace(/</g,'&lt;');
+  const listBlock = (label, arr) => '<div class="side-block"><div class="side-label">' + label +
+    '</div><ul class="side-list">' + arr.map(a => '<li>' + esc(a) + '</li>').join('') + '</ul></div>';
+  let side = '<div class="side-block"><div class="side-label">Ubicación</div><p class="side-text">' + esc(data.loc) + '</p></div>';
+  if (data.amenities && data.amenities.length) side += listBlock('Amenidades', data.amenities);
+  if (data.distribution && data.distribution.length) side += listBlock('Distribución del proyecto', data.distribution);
+  if (data.finishes) side += '<div class="side-block"><div class="side-label">Terminaciones</div><p class="side-text">' + esc(data.finishes) + '</p></div>';
+  if (data.includes && data.includes.length) side += listBlock('Incluye', data.includes);
+  document.getElementById('overviewSide').innerHTML = side;
+
+  // Tipos de apartamentos
+  if (data.units && data.units.length) {
+    document.getElementById('unitGrid').innerHTML = data.units.map(u => {
+      const beds = u.beds || u.features[0] || '';
+      const rest = u.beds ? u.features : u.features.slice(1);
+      return '<div class="unit-card"><div class="unit-head"><div><div class="unit-tipo">' + u.tipo +
+        '</div><div class="unit-beds">' + beds + '</div></div><span class="unit-area">' + u.area +
+        '</span></div><ul class="unit-feats">' + rest.map(f => '<li>' + f + '</li>').join('') + '</ul></div>';
+    }).join('');
+    document.getElementById('unitsSection').style.display = '';
+  }
+
+  // Imagen hero (cover = assets/proyectos/<slug>.<ext>)
+  tryImage('assets/proyectos/'+slug, url=>{
+    if(url){
+      document.getElementById('dheroImgEl').src = url;
+      const h = document.getElementById('dhero');
+      h.classList.remove('no-img');
+      h.classList.add('has-img');
+    }
+  });
+
+  // Galería: <slug>-1, <slug>-2, ... (secuencial)
+  const grid = document.getElementById('galleryGrid');
+  const galleryUrls = [];
+  let gi = 1;
+  (function step(){
+    tryImage('assets/proyectos/'+slug+'-'+gi, url=>{
+      if(!url){
+        if(gi===1) showEmpty();
+        return;
+      }
+      const n = galleryUrls.length;
+      galleryUrls.push(url);
+      const btn = document.createElement('button');
+      btn.className='gal-item';
+      const im = document.createElement('img');
+      im.src=url; im.loading='lazy'; im.alt=data.name+' — foto '+gi;
+      btn.appendChild(im);
+      btn.addEventListener('click', ()=>openLightbox(n));
+      grid.appendChild(btn);
+      gi++; step();
+    });
+  })();
+
+  function showEmpty(){
+    grid.outerHTML = '<div class="gallery-empty"><div class="ge-t">Galería en preparación</div>'+
+      '<div class="ge-s">Las fotos de este proyecto se publicarán pronto.</div></div>';
+  }
+
+  /* Lightbox */
+  const lb=document.getElementById('lightbox'), lbImg=document.getElementById('lbImg');
+  let cur=0;
+  function openLightbox(i){ cur=i; lbImg.src=galleryUrls[cur]; lb.classList.add('open'); }
+  function closeLightbox(){ lb.classList.remove('open'); }
+  function show(d){ cur=(cur+d+galleryUrls.length)%galleryUrls.length; lbImg.src=galleryUrls[cur]; }
+  document.getElementById('lbClose').addEventListener('click', closeLightbox);
+  document.getElementById('lbPrev').addEventListener('click', e=>{e.stopPropagation();show(-1);});
+  document.getElementById('lbNext').addEventListener('click', e=>{e.stopPropagation();show(1);});
+  lb.addEventListener('click', e=>{ if(e.target===lb) closeLightbox(); });
+  document.addEventListener('keydown', e=>{ if(!lb.classList.contains('open'))return; if(e.key==='Escape')closeLightbox(); if(e.key==='ArrowLeft')show(-1); if(e.key==='ArrowRight')show(1); });
+  window.openLightbox = openLightbox;
+}
+
+/* Cursor */
+const cursor=document.getElementById('cursor'), ring=document.getElementById('cursor-ring');
+let mx=0,my=0,cx=0,cy=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
+(function loop(){ cx+=(mx-cx)*.14; cy+=(my-cy)*.14; if(cursor){cursor.style.left=mx+'px';cursor.style.top=my+'px';} if(ring){ring.style.left=cx+'px';ring.style.top=cy+'px';} requestAnimationFrame(loop); })();
+function bindHover(){ document.querySelectorAll('a,button,.gal-item').forEach(el=>{ el.addEventListener('mouseenter',()=>document.body.classList.add('cursor-hover')); el.addEventListener('mouseleave',()=>document.body.classList.remove('cursor-hover')); }); }
+bindHover();
+
+/* Reveal on scroll */
+const io = new IntersectionObserver(es=>{ es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} }); },{threshold:.15});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+<script src="assets/i18n.js"></script>
+</body>
+</html>
